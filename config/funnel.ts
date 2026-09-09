@@ -114,7 +114,10 @@ export const funnelConfig = {
 };
 
 export const trackingConfig = {
-  metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '',
+  // L'ID del Pixel è pubblico (finisce comunque nel sorgente della pagina): sta
+  // qui come valore predefinito così il tracciamento funziona anche sulla build
+  // di GitHub Pages, dove non ci sono variabili d'ambiente configurate.
+  metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '3936545503321080',
   googleAnalyticsId: process.env.NEXT_PUBLIC_GA_ID ?? '',
   googleTagManagerId: process.env.NEXT_PUBLIC_GTM_ID ?? '',
 };

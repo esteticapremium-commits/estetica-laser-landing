@@ -1,16 +1,16 @@
 'use client';
 
 import Script from 'next/script';
-import { useEffect } from 'react';
 
 import { trackingConfig } from '@/config/funnel';
-import { trackEvent } from '@/lib/tracking';
 
+/**
+ * Il PageView non parte da qui: lo invia già lo snippet del Pixel
+ * (`fbq('track','PageView')`) e, per Analytics, la riga `gtag('config', …)`.
+ * Mandarlo anche da React lo conterebbe due volte e falserebbe il costo per
+ * risultato delle campagne.
+ */
 export function FunnelTracking() {
-  useEffect(() => {
-    trackEvent('PageView');
-  }, []);
-
   return (
     <>
       {trackingConfig.googleTagManagerId && (
