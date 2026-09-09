@@ -1,0 +1,56 @@
+# Pubblica la landing su GitHub Pages a ogni modifica del ramo main.
+name: Pubblica su GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Se arrivano due modifiche ravvicinate, va online solo l'ultima.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Costruisci il sito
+        env:
+          # Serve per gli indirizzi assoluti dell'anteprima WhatsApp: senza
+          # questo l'immagine punterebbe a localhost. `CUSTOM_DOMAIN` è una
+          # variabile del repository (Settings → Variables).
+          NEXT_PUBLIC_SITE_URL: https://${{ vars.CUSTOM_DOMAIN }}
+        run: npm run build
+
+      - name: Aggancia il dominio personalizzato
+        if: vars.CUSTOM_DOMAIN != ''
+        run: echo "${{ vars.CUSTOM_DOMAIN }}" > out/CNAME
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
