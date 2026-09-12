@@ -62,7 +62,10 @@ export const funnelConfig = {
   offerName: 'Consulenza Meticolosa',
   /** Lo stack dell'offerta, tutto ricavato da quanto il centro dichiara. */
   offerIncludes: [
-    '60 minuti dedicati solo a te, sulla zona che scegli tu',
+    // Le zone sono nominate perché due inserzioni su tre parlano di ascelle e
+    // inguine: chi arriva da quelle deve ritrovarle subito, senza restringere
+    // il campo per chi arriva dall'inserzione generica.
+    '60 minuti dedicati solo a te, sulla zona che scegli tu: ascelle, inguine, gambe o viso',
     'Check-up del fototipo e analisi del pelo',
     'Test di efficacia millimetrica sulla tua pelle',
     'Preventivo scritto, con i tempi indicativi del percorso',
