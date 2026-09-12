@@ -100,8 +100,23 @@ function doGet() {
   }
 }
 
+/**
+ * Apre il foglio senza chiedere permessi in più.
+ *
+ * Lo script è incollato dentro il foglio, quindi il documento "attivo" è già
+ * quello giusto: Google lo concede senza autorizzazioni aggiuntive. Puntare per
+ * ID richiederebbe invece il permesso ampio su TUTTI i fogli dell'account, che
+ * è esattamente l'errore che bloccava la scrittura.
+ */
+function apriFoglio() {
+  const attivo = SpreadsheetApp.getActiveSpreadsheet();
+  if (attivo) return attivo;
+  // Riserva, se un giorno lo script venisse staccato dal foglio.
+  return SpreadsheetApp.openById(ID_FOGLIO);
+}
+
 function scheda() {
-  const file = SpreadsheetApp.openById(ID_FOGLIO);
+  const file = apriFoglio();
   const foglio = file.getSheetById(ID_SCHEDA);
   if (!foglio) {
     throw new Error('La scheda gid=' + ID_SCHEDA + ' non esiste nel foglio configurato.');
