@@ -29,12 +29,22 @@ jobs:
 
       - run: npm ci
 
+      - name: Verifica il collegamento del form
+        env:
+          NEXT_PUBLIC_GOOGLE_SHEETS_WEBHOOK_URL: ${{ secrets.GOOGLE_SHEETS_WEBHOOK_URL }}
+        run: |
+          if [ -z "$NEXT_PUBLIC_GOOGLE_SHEETS_WEBHOOK_URL" ]; then
+            echo "::error::Manca il secret GOOGLE_SHEETS_WEBHOOK_URL: pubblicazione bloccata per evitare un form scollegato."
+            exit 1
+          fi
+
       - name: Costruisci il sito
         env:
           # Serve per gli indirizzi assoluti dell'anteprima WhatsApp: senza
           # questo l'immagine punterebbe a localhost. `CUSTOM_DOMAIN` è una
           # variabile del repository (Settings → Variables).
           NEXT_PUBLIC_SITE_URL: https://${{ vars.CUSTOM_DOMAIN }}
+          NEXT_PUBLIC_GOOGLE_SHEETS_WEBHOOK_URL: ${{ secrets.GOOGLE_SHEETS_WEBHOOK_URL }}
         run: npm run build
 
       - name: Aggancia il dominio personalizzato

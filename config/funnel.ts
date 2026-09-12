@@ -102,7 +102,14 @@ export const funnelConfig = {
   bookingUrl: '',
   privacyUrl: 'https://www.estetica-laser.net/index.php?p=privacy',
   cookieUrl: 'https://www.estetica-laser.net/index.php?p=privacy#cookies',
-  leadWebhookUrl: '',
+  /**
+   * Web App di Google Apps Script collegata al foglio dei contatti.
+   * Il sito è statico, quindi la chiamata parte dal browser e questo indirizzo
+   * è visibile nel sorgente: lo script deve limitarsi a scrivere sul foglio.
+   * Da compilare con l'URL che Apps Script restituisce al momento del deploy
+   * (finisce con /exec).
+   */
+  leadEndpoint: process.env.NEXT_PUBLIC_GOOGLE_SHEETS_WEBHOOK_URL ?? '',
   /** Attivare solo se il numero è un WhatsApp Business attivo. */
   whatsappEnabled: false,
 
@@ -118,6 +125,7 @@ export const trackingConfig = {
   // qui come valore predefinito così il tracciamento funziona anche sulla build
   // di GitHub Pages, dove non ci sono variabili d'ambiente configurate.
   metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '3936545503321080',
+  clarityId: process.env.NEXT_PUBLIC_CLARITY_ID ?? 'yg8m9om83h',
   googleAnalyticsId: process.env.NEXT_PUBLIC_GA_ID ?? '',
   googleTagManagerId: process.env.NEXT_PUBLIC_GTM_ID ?? '',
 };
