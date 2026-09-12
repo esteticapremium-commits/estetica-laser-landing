@@ -94,15 +94,21 @@ const mistakes: Array<{ mistake: string; instead: string; proof?: string }> = [
 
 type FormVariant = 'video' | 'appointment';
 
+/**
+ * È il momento di massimo attrito: si chiedono i dati. Qui il testo non deve
+ * spiegare la procedura ma ricordare perché vale la pena — il fastidio da cui
+ * si scappa, il risultato che si vede e quello che si sente. Le istruzioni
+ * vengono dopo.
+ */
 const formCopy: Record<FormVariant, { title: string; description: string; cta: string }> = {
   video: {
-    title: 'Guarda il video e prenota',
-    description: `Inserisci i tuoi dati e scegli la sede: ti portiamo subito al video sul ${method} e ti richiamiamo per fissare il tuo appuntamento.`,
+    title: 'Niente più ceretta, rasoio e ricrescita',
+    description: `Una pelle liscia tutto l’anno e la libertà di non pensarci più. Inserisci i tuoi dati e scegli la sede: ti portiamo subito al video sul ${method} e ti richiamiamo per fissare il tuo appuntamento.`,
     cta: 'GUARDA IL VIDEO E PRENOTA',
   },
   appointment: {
     title: offerHeadline,
-    description: `Inserisci i tuoi dati e scegli la sede: ti richiamiamo per fissare la tua ${offer}, 60 minuti dedicati alla zona che vuoi.`,
+    description: `Basta ceretta e rasoio: una pelle liscia tutto l’anno e la libertà di non pensarci più. Inserisci i tuoi dati e scegli la sede: ti richiamiamo per fissare la tua ${offer}, 60 minuti sulla zona che vuoi.`,
     cta: 'PRENOTA IL MIO APPUNTAMENTO',
   },
 };
