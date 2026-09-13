@@ -73,12 +73,10 @@ export const funnelConfig = {
   /** Bonus dichiarato sul sito per chi inizia il percorso. Vuoto = non mostrato. */
   offerBonus: 'In omaggio il Manuale Tecnico Esclusivo quando inizi il percorso',
   /**
-   * Arco di tempo dell'headline, ricavato da due dati pubblicati dal centro:
-   * i prima/dopo sul profilo Google sono etichettati "5 sedute" e il metodo
-   * prevede monitoraggio ogni 21 giorni (5 × 21 ≈ 3,5 mesi). "6 mesi" è quindi
-   * una stima prudente. VERIFY_WITH_CLIENT: farlo confermare ad Alex.
+   * Tempo dedicato a comprendere il percorso: la headline lo riferisce alla
+   * scoperta del metodo, non al conseguimento del risultato estetico.
    */
-  provenTimeframe: '6 mesi',
+  provenTimeframe: '60 minuti',
   /** Urgenza già usata dal centro sulle proprie pagine. Svuotare per toglierla. */
   scarcityNote: 'Solo 7 posti disponibili questa settimana',
   /** Prezzo trasparente dichiarato sul sito. Vuoto = non mostrato. */

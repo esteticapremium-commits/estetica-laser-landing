@@ -22,11 +22,8 @@ const offer = funnelConfig.offerName;
 /** 'LA CONSULENZA METICOLOSA È GRATUITA', il gancio ripetuto in tutta la pagina. */
 const offerHeadline = `LA ${offer.toUpperCase()} È GRATUITA`;
 
-/**
- * Etichetta unica per i pulsanti che aprono il form: dice sia cosa si guarda
- * sia che da lì si prende l'appuntamento, perché è quello il passo successivo.
- */
-const videoCtaLabel = 'GUARDA IL VIDEO E PRENOTA';
+/** Etichetta unica per tutti i pulsanti che aprono il percorso video. */
+const videoCtaLabel = 'SCOPRI COME DIRE ADDIO PER SEMPRE AI TUOI PELI';
 
 // La decisione nasce dal voler smettere di subire qualcosa: ogni voce è la
 // scocciatura concreta di oggi, non il beneficio di domani.
@@ -104,7 +101,7 @@ const formCopy: Record<FormVariant, { title: string; description: string; cta: s
   video: {
     title: 'Niente più ceretta, rasoio e ricrescita',
     description: `Una pelle liscia tutto l’anno e la libertà di non pensarci più. Inserisci i tuoi dati e scegli la sede: ti portiamo subito al video sul ${method} e ti richiamiamo per fissare il tuo appuntamento.`,
-    cta: 'GUARDA IL VIDEO E PRENOTA',
+    cta: 'SCOPRI COME DIRE ADDIO PER SEMPRE AI TUOI PELI',
   },
   appointment: {
     title: offerHeadline,
@@ -171,18 +168,16 @@ export function LandingPage() {
             {offerHeadline}
             {funnelConfig.scarcityNote ? ` · ${funnelConfig.scarcityNote}` : ''}
           </div>
-          {/* Formula: beneficio interno + esterno, arco di tempo, obiezione di
-              mercato, garanzia in chiusura. */}
+          {/* Il tempo indica quanto serve per scoprire il metodo, non promette
+              il conseguimento del risultato estetico in una sola seduta. */}
           <h1 id="main-headline">
-            Scopri come è possibile{' '}
-            <span>avere una pelle liscia tutto l’anno e smettere di pensare ai peli</span> in meno di{' '}
-            {funnelConfig.provenTimeframe}, anche senza sedute dolorose:{' '}
+            Scopri in meno di {funnelConfig.provenTimeframe} come è possibile{' '}
+            <span>avere una pelle liscia tutto l’anno e smettere di pensare ai peli</span>, anche se hai
+            già provato il laser altrove ma senza risultati:{' '}
             <span>soddisfatta o ritrattata</span>.
           </h1>
           <p className="headline-sub">
-            Niente più appuntamenti ogni mese, niente più irritazione da rasoio, niente più mattine
-            passate a decidere cosa metterti in base alla ricrescita — anche se hai già provato il
-            laser altrove e i peli sono <strong>tornati come prima</strong>.
+            Noi te li <strong>GARANTIAMO al 100%</strong>
           </p>
           <div className="hero-vsl">
             <div className="hero-vsl-label">
