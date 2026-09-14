@@ -34,14 +34,17 @@ export function VslGate({ onUnlock }: { onUnlock: () => void }) {
     >
       <span className="vsl-gate-poster" aria-hidden="true">
         <span className="vsl-gate-brand">
-          {funnelConfig.brandName ? `${funnelConfig.brandName} · ` : ''}
-          {funnelConfig.methodName}
+          <span className="vsl-gate-tv-badge">Intervista TV</span>
+          <span>
+            {funnelConfig.brandName ? `${funnelConfig.brandName} · ` : ''}
+            {funnelConfig.methodName}
+          </span>
         </span>
         <span className="vsl-gate-play">
           <Play fill="currentColor" aria-hidden="true" />
         </span>
         <span className="vsl-gate-title">
-          Scopri il {funnelConfig.methodName}, iscriviti e guarda il video!
+          Guarda l’intervista e scopri il {funnelConfig.methodName}
         </span>
         <span className="vsl-gate-bar">
           <span className="vsl-gate-progress"><span /></span>
