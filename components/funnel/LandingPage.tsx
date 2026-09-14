@@ -168,12 +168,13 @@ export function LandingPage() {
             {offerHeadline}
             {funnelConfig.scarcityNote ? ` · ${funnelConfig.scarcityNote}` : ''}
           </div>
-          {/* Il tempo indica quanto serve per scoprire il metodo, non promette
-              il conseguimento del risultato estetico in una sola seduta. */}
+          {/* Formula: beneficio interno + esterno, arco temporale, obiezione di
+              mercato e garanzia in chiusura. */}
           <h1 id="main-headline">
-            Scopri in meno di {funnelConfig.provenTimeframe} come è possibile{' '}
-            <span>avere una pelle liscia tutto l’anno e smettere di pensare ai peli</span>, anche se hai
-            già provato il laser altrove ma senza risultati:{' '}
+            Scopri come è possibile{' '}
+            <span>avere una pelle liscia tutto l’anno e smettere di pensare ai peli</span> in meno di{' '}
+            {funnelConfig.provenTimeframe}, anche se hai già provato il laser altrove ma senza
+            risultati:{' '}
             <span>soddisfatta o ritrattata</span>.
           </h1>
           <p className="headline-sub">

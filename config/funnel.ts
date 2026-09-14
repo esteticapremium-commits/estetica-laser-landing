@@ -72,10 +72,7 @@ export const funnelConfig = {
   ],
   /** Bonus dichiarato sul sito per chi inizia il percorso. Vuoto = non mostrato. */
   offerBonus: 'In omaggio il Manuale Tecnico Esclusivo quando inizi il percorso',
-  /**
-   * Tempo dedicato a comprendere il percorso: la headline lo riferisce alla
-   * scoperta del metodo, non al conseguimento del risultato estetico.
-   */
+  /** Arco temporale dichiarato nell'headline, fornito dal cliente. */
   provenTimeframe: '60 minuti',
   /** Urgenza già usata dal centro sulle proprie pagine. Svuotare per toglierla. */
   scarcityNote: 'Solo 7 posti disponibili questa settimana',
