@@ -168,14 +168,12 @@ export function LandingPage() {
             {offerHeadline}
             {funnelConfig.scarcityNote ? ` · ${funnelConfig.scarcityNote}` : ''}
           </div>
-          {/* Formula: beneficio interno + esterno, arco temporale, obiezione di
-              mercato e garanzia in chiusura. */}
+          {/* Formula: beneficio interno + esterno, arco temporale e obiezione di mercato. */}
           <h1 id="main-headline">
             Scopri come è possibile{' '}
             <span>avere una pelle liscia tutto l’anno e smettere di pensare ai peli</span> in meno di{' '}
             {funnelConfig.provenTimeframe}, anche se hai già provato il laser altrove ma senza
-            risultati:{' '}
-            <span>soddisfatta o ritrattata</span>.
+            risultati.
           </h1>
           <p className="headline-sub">
             Noi te li <strong>GARANTIAMO al 100%</strong>

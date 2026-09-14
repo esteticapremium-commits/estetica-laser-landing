@@ -255,17 +255,20 @@ a {
 
 /* Sottotitolo: alleggerisce l'headline spostando qui le condizioni */
 .headline-sub {
-  max-width: 34rem;
+  max-width: 42rem;
   margin: 1.25rem 0 0;
-  color: var(--body);
-  font-size: clamp(1.02rem, 1.35vw, 1.2rem);
-  font-weight: 500;
-  line-height: 1.55;
+  color: var(--ink);
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(1.65rem, 3vw, 2.8rem);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-wrap: balance;
 }
 
 .headline-sub strong {
   color: var(--signal-dark);
-  font-weight: 750;
+  font-weight: 800;
 }
 
 .event-note {
