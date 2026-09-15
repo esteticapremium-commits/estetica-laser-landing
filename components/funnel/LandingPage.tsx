@@ -171,7 +171,10 @@ export function LandingPage() {
           {/* Formula: beneficio interno + esterno, arco temporale e obiezione di mercato. */}
           <h1 id="main-headline">
             Scopri come è possibile{' '}
-            <span>smettere di ricominciare da capo ogni mese e liberarti della schiavitù dei peli</span>{' '}
+            <span>
+              liberarti della schiavitù dei peli e non programmare più la tua vita attorno alla
+              ceretta
+            </span>{' '}
             in meno di {funnelConfig.provenTimeframe}, senza finire in un centro che ti tratta come
             un numero e va di fretta.
           </h1>
