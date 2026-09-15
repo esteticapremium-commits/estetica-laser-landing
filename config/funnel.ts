@@ -72,8 +72,13 @@ export const funnelConfig = {
   ],
   /** Bonus dichiarato sul sito per chi inizia il percorso. Vuoto = non mostrato. */
   offerBonus: 'In omaggio il Manuale Tecnico Esclusivo quando inizi il percorso',
-  /** Arco temporale dichiarato nell'headline, fornito dal cliente. */
-  provenTimeframe: '60 minuti',
+  /**
+   * Arco temporale dichiarato nell'headline.
+   * VERIFY_WITH_CLIENT — a cosa corrispondono questi minuti va confermato:
+   * sul sito i primi 10 minuti sono quelli di calibrazione del laser, mentre
+   * la Consulenza Meticolosa dura 60 minuti.
+   */
+  provenTimeframe: '10 minuti',
   /** Urgenza già usata dal centro sulle proprie pagine. Svuotare per toglierla. */
   scarcityNote: 'Solo 7 posti disponibili questa settimana',
   /** Prezzo trasparente dichiarato sul sito. Vuoto = non mostrato. */

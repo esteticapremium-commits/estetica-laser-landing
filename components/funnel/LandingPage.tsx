@@ -164,10 +164,10 @@ export function LandingPage() {
     <main className="landing-page">
       <section id="top" className="headline-section" aria-labelledby="main-headline">
         <div className="headline-inner">
-          <div className="event-note">
-            {offerHeadline}
-            {funnelConfig.scarcityNote ? ` · ${funnelConfig.scarcityNote}` : ''}
-          </div>
+          {/* Il banner apre sullo stesso dolore della headline, poi nomina
+              l'offerta. L'urgenza resta nel blocco finale: qui allungherebbe
+              la pastiglia su tre righe da telefono. */}
+          <div className="event-note">Basta ceretta ogni mese · {offer} gratuita</div>
           {/* Formula: beneficio interno + esterno, arco temporale e obiezione di mercato. */}
           <h1 id="main-headline">
             Scopri come è possibile{' '}
@@ -179,7 +179,7 @@ export function LandingPage() {
             un numero e va di fretta.
           </h1>
           <p className="headline-sub">
-            Noi te li <strong>GARANTIAMO al 100%</strong>
+            Te lo <strong>GARANTIAMO al 100%</strong>
           </p>
           <div className="hero-vsl">
             <div className="hero-vsl-label">
