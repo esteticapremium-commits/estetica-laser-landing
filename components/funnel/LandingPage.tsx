@@ -171,9 +171,9 @@ export function LandingPage() {
           {/* Formula: beneficio interno + esterno, arco temporale e obiezione di mercato. */}
           <h1 id="main-headline">
             Scopri come è possibile{' '}
-            <span>avere una pelle liscia tutto l’anno e smettere di pensare ai peli</span> in meno di{' '}
-            {funnelConfig.provenTimeframe}, anche se hai già provato il laser altrove ma senza
-            risultati.
+            <span>smettere di ricominciare da capo ogni mese e liberarti della schiavitù dei peli</span>{' '}
+            in meno di {funnelConfig.provenTimeframe}, senza finire in un centro che ti tratta come
+            un numero e va di fretta.
           </h1>
           <p className="headline-sub">
             Noi te li <strong>GARANTIAMO al 100%</strong>
