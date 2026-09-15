@@ -34,7 +34,10 @@ export function VslGate({ onUnlock }: { onUnlock: () => void }) {
     >
       <span className="vsl-gate-poster" aria-hidden="true">
         <span className="vsl-gate-brand">
-          <span className="vsl-gate-tv-badge">Intervista TV</span>
+          {/* La pastiglia dice perché vale la pena guardare, non che formato è:
+              chi arriva dall'inserzione non cerca un'intervista, cerca la
+              promessa. */}
+          <span className="vsl-gate-badge">Garantito al 100%</span>
           <span>
             {funnelConfig.brandName ? `${funnelConfig.brandName} · ` : ''}
             {funnelConfig.methodName}
@@ -44,7 +47,7 @@ export function VslGate({ onUnlock }: { onUnlock: () => void }) {
           <Play fill="currentColor" aria-hidden="true" />
         </span>
         <span className="vsl-gate-title">
-          Guarda l’intervista e scopri il {funnelConfig.methodName}
+          Scopri come togliere i peli <strong>per sempre</strong>
         </span>
         <span className="vsl-gate-bar">
           <span className="vsl-gate-progress"><span /></span>

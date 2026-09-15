@@ -24,8 +24,9 @@
   --ring: var(--signal);
   --radius: 1rem;
   --font-heading: var(--font-playfair);
-  /* Fermo immagine autentico dell'intervista televisiva già pubblicata dal centro. */
-  --vsl-poster: url('/images/intervista-tv-preview.webp');
+  /* Sfondo dell'anteprima video: il messaggio lo porta il testo sovrapposto,
+     così resta leggibile anche da telefono. */
+  --vsl-poster: url('/images/anteprima-video.webp');
 }
 
 * {
@@ -385,7 +386,7 @@ a {
   text-transform: uppercase;
 }
 
-.vsl-gate-tv-badge {
+.vsl-gate-badge {
   padding: 0.45rem 0.7rem;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 999px;
@@ -426,6 +427,14 @@ a {
 .vsl-gate:focus-visible {
   outline: 3px solid var(--signal);
   outline-offset: 3px;
+}
+
+.vsl-gate-title strong {
+  color: #fff;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.18em;
 }
 
 .vsl-gate-title {
@@ -1902,7 +1911,7 @@ a {
     letter-spacing: 0.1em;
   }
 
-  .vsl-gate-tv-badge {
+  .vsl-gate-badge {
     flex: 0 0 auto;
     padding: 0.35rem 0.5rem;
   }
