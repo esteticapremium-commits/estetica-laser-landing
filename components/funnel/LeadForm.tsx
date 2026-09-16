@@ -5,7 +5,6 @@ import { ArrowRight, ShieldCheck } from 'lucide-react';
 
 import { funnelConfig } from '@/config/funnel';
 import { submitLead, type LeadData } from '@/lib/submitLead';
-import { trackEvent } from '@/lib/tracking';
 
 type FormStatus = 'idle' | 'loading' | 'error';
 
@@ -68,7 +67,23 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
       sessionStorage.setItem('leadFirstName', nome);
       // La thank-you page usa la sede per mostrare il numero giusto.
       sessionStorage.setItem('leadSede', sede);
-      trackEvent('Lead', { source: lead.source });
+
+      // Il Lead viene inviato dalla pagina video: farlo qui, subito prima del
+      // redirect, può interrompere la richiesta al Pixel e perdere la conversione.
+      const searchParams = new URLSearchParams(window.location.search);
+      const eventId = `lead_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+      sessionStorage.setItem(
+        'pendingMetaLeadEvent',
+        JSON.stringify({
+          eventId,
+          payload: {
+            source: lead.source,
+            campaign_id: searchParams.get('utm_campaign') ?? searchParams.get('utm_id') ?? undefined,
+            adset_id: searchParams.get('utm_term') ?? undefined,
+            ad_id: searchParams.get('utm_content') ?? undefined,
+          },
+        }),
+      );
       window.location.assign('/video');
     } catch {
       setStatus('error');

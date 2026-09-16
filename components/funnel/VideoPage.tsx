@@ -13,12 +13,19 @@ import {
   locationsSentence,
   toPhoneHref,
 } from '@/config/funnel';
-import { trackEvent } from '@/lib/tracking';
+import { trackEvent, trackEventWhenMetaReady } from '@/lib/tracking';
 
 const method = funnelConfig.methodName;
 const offer = funnelConfig.offerName;
 /** 'LA CONSULENZA METICOLOSA È GRATUITA', lo stesso gancio della landing. */
 const offerHeadline = `LA ${offer.toUpperCase()} È GRATUITA`;
+const pendingLeadKey = 'pendingMetaLeadEvent';
+
+declare global {
+  interface Window {
+    __metaLeadDispatching?: boolean;
+  }
+}
 
 export function VideoPage() {
   const [firstName, setFirstName] = useState('');
@@ -26,6 +33,29 @@ export function VideoPage() {
 
   useEffect(() => {
     trackEvent('VslView', { page: 'video' });
+
+    // Il flag viene creato solo dopo che il foglio ha confermato il salvataggio.
+    // Rimane in sessione finché Meta non accetta l'evento, così un refresh non
+    // perde la conversione e l'evento non viene inviato due volte.
+    const pendingLead = sessionStorage.getItem(pendingLeadKey);
+    if (pendingLead && !window.__metaLeadDispatching) {
+      try {
+        const parsed = JSON.parse(pendingLead) as {
+          eventId?: string;
+          payload?: Record<string, unknown>;
+        };
+        window.__metaLeadDispatching = true;
+        void trackEventWhenMetaReady('Lead', parsed.payload ?? {}, {
+          eventId: parsed.eventId,
+        }).then((sent) => {
+          if (sent) sessionStorage.removeItem(pendingLeadKey);
+          window.__metaLeadDispatching = false;
+        });
+      } catch {
+        sessionStorage.removeItem(pendingLeadKey);
+      }
+    }
+
     // sessionStorage esiste solo dopo il mount: la lettura va fatta qui per non
     // rompere l'idratazione con dati presenti solo lato client.
     // oxlint-disable-next-line react/react-compiler
