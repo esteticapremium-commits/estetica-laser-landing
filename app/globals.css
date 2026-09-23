@@ -1519,6 +1519,18 @@ a {
   background-size: 0.35rem 0.35rem, 0.35rem 0.35rem;
 }
 
+/* Senza sede scelta la tendina deve sembrare un campo vuoto: in nero grassetto
+   "Scegli la sede" passava per già compilato e le persone la saltavano. */
+.lead-form select.is-placeholder {
+  color: var(--body);
+  font-weight: 500;
+}
+
+/* Nell'elenco aperto le sedi restano leggibili anche quando la tendina è grigia. */
+.lead-form select option {
+  color: var(--ink);
+}
+
 .lead-form input:focus,
 .lead-form select:focus {
   border-color: var(--signal);

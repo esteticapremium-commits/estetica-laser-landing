@@ -144,6 +144,7 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
           <select
             ref={sedeRef}
             name="sede"
+            className={sede ? undefined : 'is-placeholder'}
             value={sede}
             onChange={(event) => { setSede(event.target.value); clearError(); }}
             disabled={status === 'loading'}
