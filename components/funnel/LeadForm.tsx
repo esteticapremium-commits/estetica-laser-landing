@@ -1,12 +1,13 @@
 'use client';
 
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useRef, useState } from 'react';
 import { ArrowRight, ShieldCheck } from 'lucide-react';
 
 import { funnelConfig } from '@/config/funnel';
 import { submitLead, type LeadData } from '@/lib/submitLead';
 
 type FormStatus = 'idle' | 'loading' | 'error';
+type FormField = 'name' | 'phone' | 'email' | 'sede' | 'consent';
 
 function splitFullName(fullName: string) {
   const parts = fullName.trim().split(/\s+/);
@@ -25,9 +26,32 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [invalidField, setInvalidField] = useState<FormField | null>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const sedeRef = useRef<HTMLSelectElement>(null);
+  const consentRef = useRef<HTMLInputElement>(null);
+
+  function showFieldError(field: FormField, message: string) {
+    setInvalidField(field);
+    setErrorMessage(message);
+    const target = {
+      name: nameRef,
+      phone: phoneRef,
+      email: emailRef,
+      sede: sedeRef,
+      consent: consentRef,
+    }[field].current;
+    requestAnimationFrame(() => {
+      target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      target?.focus({ preventScroll: true });
+    });
+  }
 
   function clearError() {
     setErrorMessage('');
+    setInvalidField(null);
     if (status === 'error') setStatus('idle');
   }
 
@@ -36,16 +60,24 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
 
     const validEmail = /.+@.+\..+/.test(email.trim());
     const validPhone = phone.replace(/[^0-9]/g, '').length >= 6;
-    if (name.trim().length < 2 || !validEmail || !validPhone) {
-      setErrorMessage('Controlla i campi e riprova.');
+    if (name.trim().length < 2) {
+      showFieldError('name', 'Inserisci il tuo nome.');
+      return;
+    }
+    if (!validPhone) {
+      showFieldError('phone', 'Controlla il numero di telefono.');
+      return;
+    }
+    if (!validEmail) {
+      showFieldError('email', 'Controlla l’indirizzo email.');
       return;
     }
     if (funnelConfig.locations.length > 1 && !sede) {
-      setErrorMessage('Scegli la sede più comoda per te.');
+      showFieldError('sede', 'Scegli la sede più comoda per te.');
       return;
     }
     if (!consent) {
-      setErrorMessage('Per continuare devi accettare l’informativa sulla privacy.');
+      showFieldError('consent', 'Per continuare devi accettare l’informativa sulla privacy.');
       return;
     }
 
@@ -93,29 +125,30 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
 
   return (
     <form className="lead-form" onSubmit={handleSubmit} noValidate>
-      {errorMessage && <div className="form-alert" role="alert">{errorMessage}</div>}
-
       <label>
         <span>Nome</span>
-        <input name="name" autoComplete="name" value={name} onChange={(event) => { setName(event.target.value); clearError(); }} disabled={status === 'loading'} required />
+        <input ref={nameRef} name="name" autoComplete="name" value={name} onChange={(event) => { setName(event.target.value); clearError(); }} disabled={status === 'loading'} aria-invalid={invalidField === 'name'} required />
       </label>
       <label>
         <span>Telefono</span>
-        <input name="phone" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(event) => { setPhone(event.target.value); clearError(); }} disabled={status === 'loading'} required />
+        <input ref={phoneRef} name="phone" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(event) => { setPhone(event.target.value); clearError(); }} disabled={status === 'loading'} aria-invalid={invalidField === 'phone'} required />
       </label>
       <label>
         <span>Email</span>
-        <input name="email" type="email" inputMode="email" autoComplete="email" value={email} onChange={(event) => { setEmail(event.target.value); clearError(); }} disabled={status === 'loading'} required />
+        <input ref={emailRef} name="email" type="email" inputMode="email" autoComplete="email" value={email} onChange={(event) => { setEmail(event.target.value); clearError(); }} disabled={status === 'loading'} aria-invalid={invalidField === 'email'} required />
       </label>
 
       {funnelConfig.locations.length > 1 && (
         <label>
           <span>Sede più comoda</span>
           <select
+            ref={sedeRef}
             name="sede"
             value={sede}
             onChange={(event) => { setSede(event.target.value); clearError(); }}
             disabled={status === 'loading'}
+            aria-invalid={invalidField === 'sede'}
+            aria-describedby={invalidField === 'sede' ? 'sede-error' : undefined}
             required
           >
             <option value="">Scegli la sede</option>
@@ -123,16 +156,19 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
               <option key={location.slug} value={location.slug}>{location.name}</option>
             ))}
           </select>
+          {invalidField === 'sede' && <span id="sede-error" className="field-error">Scegli una sede per continuare.</span>}
         </label>
       )}
 
       <label className="consent-field">
         <input
+          ref={consentRef}
           name="consent"
           type="checkbox"
           checked={consent}
           onChange={(event) => { setConsent(event.target.checked); clearError(); }}
           disabled={status === 'loading'}
+          aria-invalid={invalidField === 'consent'}
           required
         />
         <span>
@@ -152,6 +188,8 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
         <ShieldCheck aria-hidden="true" />
         {funnelConfig.guaranteeName}: fino a {funnelConfig.guaranteeSessions} sedute ripetute gratis
       </p>
+
+      {errorMessage && <div className="form-alert" role="alert">{errorMessage}</div>}
 
       <button type="submit" className="primary-cta dialog-cta" disabled={status === 'loading'}>
         {status === 'loading' ? 'INVIO IN CORSO…' : ctaLabel}
