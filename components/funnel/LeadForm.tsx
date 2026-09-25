@@ -7,7 +7,7 @@ import { funnelConfig } from '@/config/funnel';
 import { submitLead, type LeadData } from '@/lib/submitLead';
 
 type FormStatus = 'idle' | 'loading' | 'error';
-type FormField = 'name' | 'phone' | 'email' | 'sede' | 'consent';
+type FormField = 'name' | 'phone' | 'sede' | 'consent';
 
 function splitFullName(fullName: string) {
   const parts = fullName.trim().split(/\s+/);
@@ -18,7 +18,6 @@ function splitFullName(fullName: string) {
 export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: string }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
   // Con una sola sede la scelta non ha senso: viene preselezionata e nascosta.
   const [sede, setSede] = useState(
     funnelConfig.locations.length === 1 ? funnelConfig.locations[0].slug : '',
@@ -29,7 +28,6 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
   const [invalidField, setInvalidField] = useState<FormField | null>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
   const sedeRef = useRef<HTMLSelectElement>(null);
   const consentRef = useRef<HTMLInputElement>(null);
 
@@ -39,7 +37,6 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
     const target = {
       name: nameRef,
       phone: phoneRef,
-      email: emailRef,
       sede: sedeRef,
       consent: consentRef,
     }[field].current;
@@ -58,7 +55,6 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
   async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const validEmail = /.+@.+\..+/.test(email.trim());
     const validPhone = phone.replace(/[^0-9]/g, '').length >= 6;
     if (name.trim().length < 2) {
       showFieldError('name', 'Inserisci il tuo nome.');
@@ -66,10 +62,6 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
     }
     if (!validPhone) {
       showFieldError('phone', 'Controlla il numero di telefono.');
-      return;
-    }
-    if (!validEmail) {
-      showFieldError('email', 'Controlla l’indirizzo email.');
       return;
     }
     if (funnelConfig.locations.length > 1 && !sede) {
@@ -86,7 +78,6 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
       nome,
       cognome,
       telefono: phone.trim(),
-      email: email.trim(),
       sede,
       privacyConsent: true,
       source: 'landing-video-training',
@@ -132,10 +123,6 @@ export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: stri
       <label>
         <span>Telefono</span>
         <input ref={phoneRef} name="phone" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(event) => { setPhone(event.target.value); clearError(); }} disabled={status === 'loading'} aria-invalid={invalidField === 'phone'} required />
-      </label>
-      <label>
-        <span>Email</span>
-        <input ref={emailRef} name="email" type="email" inputMode="email" autoComplete="email" value={email} onChange={(event) => { setEmail(event.target.value); clearError(); }} disabled={status === 'loading'} aria-invalid={invalidField === 'email'} required />
       </label>
 
       {funnelConfig.locations.length > 1 && (

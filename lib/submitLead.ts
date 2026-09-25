@@ -3,8 +3,11 @@ import { funnelConfig } from '@/config/funnel';
 export type LeadData = {
   nome: string;
   cognome: string;
+  /**
+   * Niente email: il centro richiama al telefono, e le registrazioni mostrano
+   * persone che compilavano nome e telefono e abbandonavano sul campo email.
+   */
   telefono: string;
-  email: string;
   /** Slug della sede scelta: 'corticella' | 'casalecchio' | 'castel-maggiore'. */
   sede: string;
   privacyConsent: true;

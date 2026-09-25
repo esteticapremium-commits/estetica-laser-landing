@@ -58,7 +58,9 @@ function doPost(e) {
     if (telefono.replace(/\D/g, '').length < 8) {
       return risposta({ ok: false, error: 'Telefono non valido' });
     }
-    if (!/.+@.+\..+/.test(email)) {
+    // L'email è facoltativa (il modulo non la chiede più): se arriva, deve
+    // comunque avere la forma di un indirizzo.
+    if (email && !/.+@.+\..+/.test(email)) {
       return risposta({ ok: false, error: 'Email non valida' });
     }
 
