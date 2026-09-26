@@ -8,6 +8,7 @@ import { SiteFooter } from '@/components/funnel/SiteFooter';
 import { VslPlayer } from '@/components/funnel/VslPlayer';
 import {
   advisorName,
+  conversionCtaLabel,
   findLocation,
   funnelConfig,
   locationsSentence,
@@ -64,7 +65,7 @@ export function VideoPage() {
     setSede(sessionStorage.getItem('leadSede') ?? '');
   }, []);
 
-  const bookingLabel = 'PRENOTA LA CONSULENZA METICOLOSA GRATUITA';
+  const bookingLabel = conversionCtaLabel;
   // Ogni sede ha la propria linea: se la lead ne ha scelta una, mostriamo quella.
   const chosenLocation = findLocation(sede);
   const callNumber = chosenLocation?.phone ?? funnelConfig.phone;
@@ -130,18 +131,17 @@ export function VideoPage() {
               <a
                 href={toPhoneHref(callNumber)}
                 className="primary-cta"
+                aria-label={`${conversionCtaLabel}. Chiama ${chosenLocation?.name ?? 'il centro'}: ${callNumber}`}
                 onClick={() =>
                   trackEvent('BookingClick', { location: '/video', channel: 'phone', sede })
                 }
               >
                 <Phone aria-hidden="true" />
-                {chosenLocation
-                  ? `CHIAMA ${chosenLocation.name.toUpperCase()}: ${callNumber}`
-                  : `CHIAMA IL ${callNumber}`}
+                {conversionCtaLabel}
               </a>
             ) : (
               <Link href="/" className="primary-cta">
-                TORNA ALLA LANDING<ArrowRight aria-hidden="true" />
+                {conversionCtaLabel}<ArrowRight aria-hidden="true" />
               </Link>
             )}
 
@@ -156,12 +156,13 @@ export function VideoPage() {
                 }
               >
                 <MessageCircle aria-hidden="true" />
-                Scrivi su WhatsApp
+                {conversionCtaLabel}
               </a>
             )}
           </div>
 
           <p className="booking-note">
+            {callNumber && <>Telefono: {callNumber}. </>}
             Ti richiamiamo negli orari di apertura
             {funnelConfig.openingHours ? ` (${funnelConfig.openingHours})` : ''}.{' '}
             {chosenLocation

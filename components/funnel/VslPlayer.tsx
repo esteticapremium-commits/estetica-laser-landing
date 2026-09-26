@@ -2,7 +2,7 @@
 
 import { Maximize, Play, Volume2 } from 'lucide-react';
 
-import { funnelConfig } from '@/config/funnel';
+import { conversionCtaLabel, funnelConfig } from '@/config/funnel';
 
 /** File video serviti direttamente da /public, non da un provider esterno. */
 const VIDEO_FILE = /\.(mp4|webm|ogv|mov)(\?.*)?$/i;
@@ -30,7 +30,7 @@ export function VslGate({ onUnlock }: { onUnlock: () => void }) {
       type="button"
       className="vsl-gate"
       onClick={onUnlock}
-      aria-label={`Riproduci il video sul ${funnelConfig.methodName}`}
+      aria-label={conversionCtaLabel}
     >
       <span className="vsl-gate-poster" aria-hidden="true">
         <span className="vsl-gate-brand">
@@ -47,7 +47,7 @@ export function VslGate({ onUnlock }: { onUnlock: () => void }) {
           <Play fill="currentColor" aria-hidden="true" />
         </span>
         <span className="vsl-gate-title">
-          Scopri come togliere i peli <strong>per sempre</strong>
+          {conversionCtaLabel}
         </span>
         <span className="vsl-gate-bar">
           <span className="vsl-gate-progress"><span /></span>

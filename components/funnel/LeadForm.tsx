@@ -3,7 +3,7 @@
 import { SyntheticEvent, useRef, useState } from 'react';
 import { ArrowRight, ShieldCheck } from 'lucide-react';
 
-import { funnelConfig } from '@/config/funnel';
+import { conversionCtaLabel, funnelConfig } from '@/config/funnel';
 import { submitLead, type LeadData } from '@/lib/submitLead';
 
 type FormStatus = 'idle' | 'loading' | 'error';
@@ -15,7 +15,7 @@ function splitFullName(fullName: string) {
   return { nome, cognome: parts.join(' ') };
 }
 
-export function LeadForm({ ctaLabel = 'GUARDA IL VIDEO ORA' }: { ctaLabel?: string }) {
+export function LeadForm({ ctaLabel = conversionCtaLabel }: { ctaLabel?: string }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   // Con una sola sede la scelta non ha senso: viene preselezionata e nascosta.

@@ -5,6 +5,8 @@
  * Ogni campo lasciato vuoto non stampa un segnaposto: il blocco che lo usa
  * semplicemente non viene reso.
  */
+export const conversionCtaLabel = 'Blocca il tuo posto per ottenere il soddisfatto o ritrattata';
+
 export const funnelConfig = {
   // --- Identità del centro -------------------------------------------------
   centerName: 'Estetica Laser Bologna',

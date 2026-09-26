@@ -14,7 +14,7 @@ import { LeadForm } from '@/components/funnel/LeadForm';
 import { SiteFooter } from '@/components/funnel/SiteFooter';
 import { VslGate } from '@/components/funnel/VslPlayer';
 import { caseStudies, googleReviews, proofPairs } from '@/config/content';
-import { funnelConfig, locationsSentence } from '@/config/funnel';
+import { conversionCtaLabel, funnelConfig, locationsSentence } from '@/config/funnel';
 import { trackEvent } from '@/lib/tracking';
 
 const method = funnelConfig.methodName;
@@ -23,7 +23,7 @@ const offer = funnelConfig.offerName;
 const offerHeadline = `LA ${offer.toUpperCase()} È GRATUITA`;
 
 /** Etichetta unica per tutti i pulsanti che aprono il percorso video. */
-const videoCtaLabel = 'SCOPRI COME DIRE ADDIO PER SEMPRE AI TUOI PELI';
+const videoCtaLabel = conversionCtaLabel;
 
 // La decisione nasce dal voler smettere di subire qualcosa: ogni voce è la
 // scocciatura concreta di oggi, non il beneficio di domani.
@@ -101,12 +101,12 @@ const formCopy: Record<FormVariant, { title: string; description: string; cta: s
   video: {
     title: 'Niente più ceretta, rasoio e ricrescita',
     description: `Una pelle liscia tutto l’anno e la libertà di non pensarci più. Inserisci i tuoi dati e scegli la sede: ti portiamo subito al video sul ${method} e ti richiamiamo per fissare il tuo appuntamento.`,
-    cta: 'SCOPRI COME DIRE ADDIO PER SEMPRE AI TUOI PELI',
+    cta: conversionCtaLabel,
   },
   appointment: {
     title: offerHeadline,
     description: `Basta ceretta e rasoio: una pelle liscia tutto l’anno e la libertà di non pensarci più. Inserisci i tuoi dati e scegli la sede: ti richiamiamo per fissare la tua ${offer}, 60 minuti sulla zona che vuoi.`,
-    cta: 'PRENOTA IL MIO APPUNTAMENTO',
+    cta: conversionCtaLabel,
   },
 };
 
@@ -512,7 +512,7 @@ export function LandingPage() {
               : '. Il preventivo ti viene messo per iscritto prima di iniziare.'}
           </p>
           <button type="button" className="primary-cta" onClick={() => openForm('appointment')}>
-            PRENOTA LA CONSULENZA METICOLOSA GRATUITA
+            {conversionCtaLabel}
             <ArrowRight aria-hidden="true" />
           </button>
         </div>
